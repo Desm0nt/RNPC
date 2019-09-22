@@ -142,7 +142,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception Ex)
             {
-                MessageBox.Show("Ошибка DeletePictures: " + Ex.Message);
+                MessageBox.Show("Ошибка в DeletePictures: " + Ex.Message);
             }
         }
 
