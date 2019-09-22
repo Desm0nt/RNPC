@@ -78,7 +78,14 @@ namespace WindowsFormsApp1
             kryptonButton1.Enabled = false;
             subPath = "\\" + kryptonComboBox1.SelectedValue; // your code goes here
             System.IO.Directory.CreateDirectory(target_path + subPath);
-            worker.RunWorkerAsync();
+            if (!String.IsNullOrWhiteSpace(pathTextBox.Text) && !String.IsNullOrWhiteSpace(diagtextbox.Text))
+                worker.RunWorkerAsync();
+            else
+            {
+                MessageBox.Show("Выберите файл и укажите диагноз!");
+                button1.Enabled = true;
+                kryptonButton1.Enabled = true;
+            }
 
         }
 

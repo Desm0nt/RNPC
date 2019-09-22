@@ -20,9 +20,14 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var result = DBOPS.AddNewPat(nametextbox.Text, surtextbox.Text, otchtextbox.Text, bdatepicker.Value, pdatepicker.Value, diagtextbox.Text);
-            if (result)
-                this.Close();
+            if (!String.IsNullOrWhiteSpace(nametextbox.Text) && !String.IsNullOrWhiteSpace(surtextbox.Text) && !String.IsNullOrWhiteSpace(otchtextbox.Text) && !String.IsNullOrWhiteSpace(diagtextbox.Text))
+            {
+                var result = DBOPS.AddNewPat(nametextbox.Text, surtextbox.Text, otchtextbox.Text, bdatepicker.Value, pdatepicker.Value, diagtextbox.Text);
+                if (result)
+                    this.Close();
+            }
+            else
+                MessageBox.Show("Все поля должны быть заполнены!");
             
         }
 

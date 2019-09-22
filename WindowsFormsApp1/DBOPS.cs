@@ -250,6 +250,34 @@ namespace WindowsFormsApp1
             }
             return pics;
         }
+        public static List<SearchImageListTable> GetSearchImagesList()
+        {
+            List<SearchImageListTable> pics = new List<SearchImageListTable>();
+            try
+            {
+                SqlConnection myConnection = new SqlConnection(cnStr);
+                myConnection.Open();
+
+                string query = "SELECT * FROM [Pictures]";
+                SqlCommand command = new SqlCommand(query, myConnection);
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        var date = DateTime.Parse(dr["date"].ToString());
+                        var fio = GetPat(Int32.Parse(dr["id_pat"].ToString()));
+                        var vid = GetVid(Int32.Parse(dr["id_vid"].ToString()));
+                        pics.Add(new SearchImageListTable { Id = Int32.Parse(dr["id"].ToString()), Id_vid = Path.GetFileName(vid.path), Id_pat = fio.FIO, date = date, path = dr["path"].ToString(), timestamp = dr["timestamp"].ToString() });
+                    }
+                }
+                myConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Ошибка GetImagesList: " + Ex.Message);
+            }
+            return pics;
+        }
 
         public static PatInfoTable GetPat(int id)
         {

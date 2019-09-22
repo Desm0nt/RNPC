@@ -1,4 +1,6 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using Emgu.CV;
+using Emgu.CV.Structure;
 using FFMpegCore;
 using FFMpegCore.FFMPEG;
 using System;
@@ -20,6 +22,7 @@ namespace WindowsFormsApp1
     public partial class Form1 : KryptonForm
     {
         string inputFile, vidDiag;
+        TimeSpan videoLength;
         TimeSpan globalTimeSpan = new TimeSpan(0, 0, 0, 0);
         List<PatsTable> pats = new List<PatsTable>();
         List<VidTable> vids = new List<VidTable>();
@@ -117,6 +120,7 @@ namespace WindowsFormsApp1
                 pictureBox1.Image = null;
                 panel4.Enabled = false;
                 imgnum = 0;
+                globalTimeSpan = new TimeSpan(0, 0, 0, 0);
             }
         }
 
@@ -134,6 +138,74 @@ namespace WindowsFormsApp1
                 );
             pictureBox1.Image = img;
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+
+        private void kryptonButton4_Click(object sender, EventArgs e)
+        {
+            var m = globalTimeSpan.Minutes;
+            var s = globalTimeSpan.Seconds;
+            s = s + (int)numericUpDown1.Value;
+            if (s >= 60)
+            {
+                m = m + 1;
+                s = s - 60;
+            }
+            var oldtime = globalTimeSpan;
+            globalTimeSpan = new TimeSpan(0, 0, m, s);
+            if (TimeSpan.Compare(globalTimeSpan, videoLength) != 1)
+            {
+                string outstr = video.Directory + "\\" + video.Name + " - " + globalTimeSpan.ToString(@"hh\_mm\_ss") + ".jpg";
+                label16.Text = globalTimeSpan.ToString(@"hh\:mm\:ss");
+                FileInfo output = new FileInfo(outstr);
+                Bitmap img = new FFMpeg().Snapshot(
+                        video,
+                        output,
+                        new Size(video.Width, video.Height),
+                        globalTimeSpan
+                    );
+                pictureBox1.Image = img;
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            else
+            {
+                globalTimeSpan = oldtime;
+                MessageBox.Show("Вы достигли конца видео");
+            }
+        }
+
+        private void kryptonButton3_Click(object sender, EventArgs e)
+        {
+            var m = globalTimeSpan.Minutes;
+            var s = globalTimeSpan.Seconds;
+            s = s - (int)numericUpDown1.Value;
+            if (s < 0)
+            {
+                m = m - 1;
+                s = 60-s;
+            }
+            var oldtime = globalTimeSpan;
+            globalTimeSpan = new TimeSpan(0, 0, m, s);
+            TimeSpan zero = new TimeSpan(0, 0, 0, 1);
+            var a = TimeSpan.Compare(globalTimeSpan, zero);
+            if (TimeSpan.Compare(globalTimeSpan, zero) != -1)
+            {
+                string outstr = video.Directory + "\\" + video.Name + " - " + globalTimeSpan.ToString(@"hh\_mm\_ss") + ".jpg";
+                label16.Text = globalTimeSpan.ToString(@"hh\:mm\:ss");
+                FileInfo output = new FileInfo(outstr);
+                Bitmap img = new FFMpeg().Snapshot(
+                        video,
+                        output,
+                        new Size(video.Width, video.Height),
+                        globalTimeSpan
+                    );
+                pictureBox1.Image = img;
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            else
+            {
+                globalTimeSpan = oldtime;
+                MessageBox.Show("Вы достигли начала видео");
+            }
         }
 
         private void bButton_Click(object sender, EventArgs e)
@@ -167,7 +239,9 @@ namespace WindowsFormsApp1
                 var videoInfo = ffProbe.GetMediaInfo(inputFile);
                 video = new VideoInfo(inputFile);
                 count = 0;
+                globalTimeSpan = new TimeSpan(0, 0, 0, 0);
 
+                videoLength = videoInfo.Duration;
                 string output1 = videoInfo.Duration.ToString();
                 //label3.Text = pat.FIO;
                 //label2.Text = pat.Bdate.ToString("dd/MM/yyyy");
@@ -205,6 +279,39 @@ namespace WindowsFormsApp1
                     pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 }
             }
+        }
+
+        private void поискПоКадруToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Bitmap bmp = (Bitmap)pictureBox1.Image;
+                Image<Gray, Byte> myImage = new Image<Gray, Byte>(bmp);
+                DenseHistogram hist = new DenseHistogram(256, new RangeF(0.0f, 255.0f));
+                hist.Calculate<Byte>(new Image<Gray, byte>[] { myImage }, true, null);
+
+                var imList = DBOPS.GetSearchImagesList();
+                for (int i = 0; i < imList.Count; i++)
+                {
+                    Bitmap myBmp = (Bitmap)Image.FromFile(System.IO.Directory.GetCurrentDirectory() + imList[i].path);
+                    Image<Gray, Byte> myImage2 = new Image<Gray, Byte>(myBmp);
+                    DenseHistogram hist2 = new DenseHistogram(256, new RangeF(0.0f, 255.0f));
+                    hist2.Calculate<Byte>(new Image<Gray, byte>[] { myImage2 }, true, null);
+                    var a = CvInvoke.CompareHist(hist, hist2, Emgu.CV.CvEnum.HistogramCompMethod.Chisqr);
+                    imList[i].distance = a;
+                }
+                var sortedimgs = imList.OrderBy(a => a.distance).ToList();
+                List<SearchImageListTable> top10img = new List<SearchImageListTable>();
+                for (int i = 0; i < 10; i++)
+                {
+                    top10img.Add(sortedimgs[i]);
+                }
+                var myForm = new Top10Form(top10img);
+                //myForm.FormClosed += new FormClosedEventHandler(myForm_FormClosed);
+                myForm.Show();
+            }
+            catch (Exception ex) { }
+
         }
 
         private void nButton_Click(object sender, EventArgs e)
