@@ -194,6 +194,39 @@ namespace WindowsFormsApp1
             }
         }
 
+        public static void DeleteVidCascade(int vid_id, string path)
+        {
+            try
+            {
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
+                myConnection.Open();
+
+                string query = "DELETE FROM Pictures Where id_vid = @id_vid";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
+                command.Parameters.AddWithValue("@vid_id", vid_id);
+                command.ExecuteNonQuery();
+                query = "DELETE FROM Video Where id = @id";
+                command = new NpgsqlCommand(query, myConnection);
+                command.Parameters.AddWithValue("@id", vid_id);
+                command.ExecuteNonQuery();
+                myConnection.Close();
+                if (Directory.Exists(System.IO.Directory.GetCurrentDirectory()  + path+ "_images"))
+                {
+                    System.GC.Collect();
+                    System.GC.WaitForPendingFinalizers();
+                    System.IO.Directory.Delete(System.IO.Directory.GetCurrentDirectory() +  path + "_images", true);
+                }
+                if (File.Exists(System.IO.Directory.GetCurrentDirectory() + path))
+                {
+                    File.Delete(System.IO.Directory.GetCurrentDirectory() + path);
+                }
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Ошибка в DeleteVidCascade: " + Ex.Message);
+            }
+        }
+
         public static bool ExistPicturesCheck(int id_vid)
         {
             bool status = false;
@@ -315,7 +348,7 @@ namespace WindowsFormsApp1
                         var date = DateTime.Parse(dr["date"].ToString());
                         var fio = GetPat(Int32.Parse(dr["id_pat"].ToString()));
                         var vid = GetVid(Int32.Parse(dr["id_vid"].ToString()));
-                        pics.Add(new SearchImageListTable { Id = Int32.Parse(dr["id"].ToString()), Id_vid = Path.GetFileName(vid.path), Id_pat = fio.FIO, date = date, path = dr["path"].ToString(), timestamp = dr["timestamp"].ToString() });
+                        pics.Add(new SearchImageListTable { Id = Int32.Parse(dr["id"].ToString()), Id_vid = Path.GetFileName(vid.Path), Id_pat = fio.FIO, date = date, path = dr["path"].ToString(), timestamp = dr["timestamp"].ToString() });
                     }
                 }
                 myConnection.Close();
@@ -378,7 +411,7 @@ namespace WindowsFormsApp1
                         {
                             Id = Int32.Parse(dr["id"].ToString()),
                             Diag = dr["diag"].ToString(),
-                            path = dr["path"].ToString()
+                            Path = dr["path"].ToString()
                         };
                     }
                 }

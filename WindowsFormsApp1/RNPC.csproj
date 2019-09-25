@@ -218,6 +218,12 @@
     <Content Include="FFMPEG\bin\x86\ffmpeg.exe" />
     <Content Include="FFMPEG\bin\x86\ffprobe.exe" />
     <Content Include="License-LGPL.txt" />
+    <Content Include="Resources\ffmpeg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ffprobe.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\ok.png" />
     <None Include="Resources\007359-blue-jelly-icon-arrows-arrow-thick-right2.png" />
     <None Include="Resources\007359-blue-jelly-icon-arrows-arrow-thick-right.png" />

@@ -41,6 +41,41 @@ namespace WindowsFormsApp1
             DBOPS.CreatPatsTable();
             DBOPS.CreatVideoTable();
             DBOPS.CreatPictueTable();
+
+            // Create the ContextMenuStrip.
+            docMenu = new ContextMenuStrip();
+
+            //Create some menu items.
+            ToolStripMenuItem deleteLabel = new ToolStripMenuItem();
+            deleteLabel.Text = "Удалить";
+            docMenu.Items.AddRange(new ToolStripMenuItem[]{deleteLabel});
+            deleteLabel.Click += deleteLabel_click;
+        }
+
+        void deleteLabel_click(object sender, EventArgs e)
+        {
+            {
+                if (treeView2.SelectedNode != null)
+                {
+                    // Root node's Parent property is null, so do check
+                    if (treeView2.SelectedNode.Parent != null && Int32.Parse(treeView2.SelectedNode.Tag.ToString()) != -1) 
+                    {
+                        var vid = DBOPS.GetVid(Int32.Parse(treeView2.SelectedNode.Tag.ToString()));
+                        try
+                        {
+                            pictureBox1.Image = null;
+                            pictureBox1.Image.Dispose();
+                            panel4.Enabled = false;
+                        }
+                        catch { }
+                        panel4.Enabled = false;
+                        nButton.Visible = false;
+                        bButton.Visible = false;
+                        DBOPS.DeleteVidCascade(Int32.Parse(treeView2.SelectedNode.Tag.ToString()), vid.Path);
+                        treeView2.SelectedNode.Parent.Nodes.Remove(treeView2.SelectedNode);
+                    }
+                }
+            }
         }
 
         private void patTreeRefresh()
@@ -71,12 +106,14 @@ namespace WindowsFormsApp1
             parent.Tag = -1;
             treeView2.Nodes.Add(parent);
 
+
             foreach (var a in vids)
             {
                 TreeNode child = new TreeNode();
                 child.Text = a.Name;
                 child.Tag = a.Id;
                 parent.Nodes.Add(child);
+                child.ContextMenuStrip = docMenu;
             }
             treeView2.ExpandAll();
         }
@@ -237,7 +274,7 @@ namespace WindowsFormsApp1
                 pics = pics.OrderBy(i => i.Id).ToList();
                 vidDiag = vid.Diag;
                 vidId = Int32.Parse(e.Node.Tag.ToString());
-                inputFile = System.IO.Directory.GetCurrentDirectory() + vid.path;
+                inputFile = System.IO.Directory.GetCurrentDirectory() + vid.Path;
                 var ffProbe = new NReco.VideoInfo.FFProbe();
                 var videoInfo = ffProbe.GetMediaInfo(inputFile);
                 video = new VideoInfo(inputFile);
@@ -367,7 +404,7 @@ namespace WindowsFormsApp1
                 pics = pics.OrderBy(i => i.Id).ToList();
                 vidDiag = vid.Diag;
                 vidId = Int32.Parse(e.Node.Tag.ToString());
-                inputFile = System.IO.Directory.GetCurrentDirectory() + vid.path;
+                inputFile = System.IO.Directory.GetCurrentDirectory() + vid.Path;
                 var ffProbe = new NReco.VideoInfo.FFProbe();
                 var videoInfo = ffProbe.GetMediaInfo(inputFile);
                 video = new VideoInfo(inputFile);
@@ -478,6 +515,8 @@ namespace WindowsFormsApp1
 
         private delegate void UpdateStatusDelegate();
         private UpdateStatusDelegate updateStatusDelegate = null;
+        private ContextMenuStrip docMenu;
+
         private void UpdateStatus()
         {
             progressBar1.PerformStep();
