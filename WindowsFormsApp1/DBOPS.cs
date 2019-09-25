@@ -9,58 +9,74 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using WindowsFormsApp1.DataClasses;
+using System.Data.Common;
+using Npgsql;
 
 namespace WindowsFormsApp1
 {
     class DBOPS
     {
+        static string dp = ConfigurationManager.AppSettings["provider"];
         static string cnStr = ConfigurationManager.AppSettings["cnStr"];
 
+        static DbProviderFactory factory = DbProviderFactories.GetFactory(dp);
 
+
+        public static void CreatPatsTable()
+        {
+            try
+            {
+                NpgsqlConnection myConnection2 = new NpgsqlConnection(cnStr);
+                myConnection2.Open();
+                string query = "CREATE TABLE IF NOT EXISTS Patsient (id SERIAL, surname text NOT NULL, name text NOT NULL, otch text NOT NULL, birthdate date NOT NULL, date_post date NOT NULL, diag text NOT NULL, PRIMARY KEY (id))";
+                NpgsqlCommand command2 = new NpgsqlCommand(query, myConnection2);
+                command2.ExecuteNonQuery();
+                myConnection2.Close();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Ошибка сотворения CreatPatsTable: " + Ex.Message);
+            }
+        }
         public static void CreatVideoTable()
         {
-            try
-            {
-                SqlConnection myConnection2 = new SqlConnection(cnStr);
-                myConnection2.Open();
-                string query = "IF OBJECT_ID('Video', 'U') IS NULL CREATE TABLE Video (id INT PRIMARY KEY, id_pat INT NOT NULL, date DATETIME NOT NULL, diag VARCHAR (255), path VARCHAR (255) NOT NULL, FOREIGN KEY (id_pat) REFERENCES Patsient (id))";
-                SqlCommand command2 = new SqlCommand(query, myConnection2);
+
+                NpgsqlConnection myConnection2 = new NpgsqlConnection(cnStr);
+                myConnection2.Open();           
+                string query = "CREATE TABLE IF NOT EXISTS Video (id SERIAL, id_pat INT NOT NULL REFERENCES Patsient(id), date date NOT NULL, diag text, path text NOT NULL, PRIMARY KEY (id), FOREIGN KEY(id_pat) REFERENCES Patsient(id))";
+                NpgsqlCommand command2 = new NpgsqlCommand(query, myConnection2);
                 command2.ExecuteNonQuery();
                 myConnection2.Close();
+            
 
-            }
-            catch (Exception Ex)
-            {
-                MessageBox.Show("Ошибка сотворения таблицы видео: " + Ex.Message);
-            }
         }
-        public static void CreatePictureTable()
+        public static void CreatPictueTable()
         {
             try
             {
-                SqlConnection myConnection2 = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection2 = new NpgsqlConnection(cnStr);
                 myConnection2.Open();
-                string query = "IF OBJECT_ID('Pictures', 'U') IS NULL CREATE TABLE Pictures (id INT PRIMARY KEY, id_vid INT NOT NULL, id_pat INT NOT NULL, date DATETIME NOT NULL, timestamp VARCHAR (255), diag VARCHAR (255), path VARCHAR (255), type VARCHAR (255), FOREIGN KEY (id_pat) REFERENCES Patsient (id), FOREIGN KEY (id_vid) REFERENCES Video (id))";
-                SqlCommand command2 = new SqlCommand(query, myConnection2);
+                string query = "CREATE TABLE IF NOT EXISTS Pictures (id SERIAL, id_vid INT NOT NULL, id_pat INT NOT NULL, date date NOT NULL, timestamp text, diag text, path text, type text, PRIMARY KEY (id), FOREIGN KEY (id_vid) REFERENCES video(id), FOREIGN KEY (id_pat) REFERENCES Patsient(id))";
+                NpgsqlCommand command2 = new NpgsqlCommand(query, myConnection2);
                 command2.ExecuteNonQuery();
                 myConnection2.Close();
-
             }
             catch (Exception Ex)
             {
-                MessageBox.Show("Ошибка сотворения таблицы видео: " + Ex.Message);
+                MessageBox.Show("Ошибка сотворения CreatPictueTable: " + Ex.Message);
             }
         }
+
         public static bool AddNewPat(string name, string surname, string otch, DateTime bdate, DateTime pdate, string diag)
         {
             bool result = false;
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
-                string query = "INSERT INTO Patsient (name, surname, otch, birthdate, date_post, diag, maker_id) VALUES (@name, @surname, @otch, @birthdate, @date_post, @diag, 1)";
-                SqlCommand command = new SqlCommand(query, myConnection);
+                string query = "INSERT INTO Patsient (name, surname, otch, birthdate, date_post, diag) VALUES (@name, @surname, @otch, @birthdate, @date_post, @diag)";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@name", name);
                 command.Parameters.AddWithValue("@surname", surname);
                 command.Parameters.AddWithValue("@otch", otch);
@@ -83,11 +99,11 @@ namespace WindowsFormsApp1
             bool result = false;
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
                 string query = "INSERT INTO Video (id_pat, date, diag, path) VALUES (@id_pat, @date, @diag, @path)";
-                SqlCommand command = new SqlCommand(query, myConnection);
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id_pat", id_pat);
                 command.Parameters.AddWithValue("@date", date);
                 command.Parameters.AddWithValue("@diag", diag);
@@ -106,11 +122,11 @@ namespace WindowsFormsApp1
             bool result = false;
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
                 string query = "INSERT INTO Pictures (id_vid, id_pat, date, diag, path, timestamp) VALUES (@id_vid, @id_pat, @date, @diag, @path, @timestamp)";
-                SqlCommand command = new SqlCommand(query, myConnection);
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id_vid", id_vid);
                 command.Parameters.AddWithValue("@id_pat", id_pat);
                 command.Parameters.AddWithValue("@date", date);
@@ -131,11 +147,11 @@ namespace WindowsFormsApp1
         {
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
-                string query = "DELETE FROM [Pictures] Where id_vid = @id_vid";
-                SqlCommand command = new SqlCommand(query, myConnection);
+                string query = "DELETE FROM Pictures Where id_vid = @id_vid";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id_vid", id_vid);
                 command.ExecuteNonQuery();
                 myConnection.Close();
@@ -145,17 +161,49 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Ошибка в DeletePictures: " + Ex.Message);
             }
         }
+        public static void DeletePatCascade(int id)
+        {
+            try
+            {
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
+                myConnection.Open();
+
+                string query = "DELETE FROM Pictures Where id_pat = @id_pat";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
+                command.Parameters.AddWithValue("@id_pat", id);
+                command.ExecuteNonQuery();
+                query = "DELETE FROM Video Where id_pat = @id_pat";
+                command = new NpgsqlCommand(query, myConnection);
+                command.Parameters.AddWithValue("@id_pat", id);
+                command.ExecuteNonQuery();
+                query = "DELETE FROM Patsient Where id = @id";
+                command = new NpgsqlCommand(query, myConnection);
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+                myConnection.Close();
+                if (Directory.Exists(System.IO.Directory.GetCurrentDirectory() + "\\" + id))
+                {
+                    System.GC.Collect();
+                    System.GC.WaitForPendingFinalizers();
+                    System.IO.Directory.Delete(System.IO.Directory.GetCurrentDirectory() + "\\" + id, true);
+                }
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Ошибка в DeletePatCascade: " + Ex.Message);
+            }
+        }
 
         public static bool ExistPicturesCheck(int id_vid)
         {
             bool status = false;
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
                 string query = "SELECT COUNT(*) FROM Pictures where id_vid = @id_vid";
-                SqlCommand command = new SqlCommand(query, myConnection);
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id_vid", id_vid);
                 var result = Convert.ToInt32(command.ExecuteScalar());
                 if (result >= 1)
@@ -176,12 +224,12 @@ namespace WindowsFormsApp1
             List<PatsTable> pats = new List<PatsTable>();
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
-                string query = "SELECT * FROM [Patsient]";
-                SqlCommand command = new SqlCommand(query, myConnection);
-                using (SqlDataReader dr = command.ExecuteReader())
+                string query = "SELECT * FROM Patsient";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
+                using (NpgsqlDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -192,7 +240,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception Ex)
             {
-                MessageBox.Show("Ошибка GetFuelsTradeId: " + Ex.Message);
+                MessageBox.Show("Ошибка GetPatsList: " + Ex.Message);
             }
             return pats;
         }
@@ -201,13 +249,13 @@ namespace WindowsFormsApp1
             List<VidTable> vids = new List<VidTable>();
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
-                string query = "SELECT * FROM [Video] where id_pat = @id_pat";
-                SqlCommand command = new SqlCommand(query, myConnection);
+                string query = "SELECT * FROM Video where id_pat = @id_pat";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id_pat", id_pat);
-                using (SqlDataReader dr = command.ExecuteReader())
+                using (NpgsqlDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -219,7 +267,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception Ex)
             {
-                MessageBox.Show("Ошибка GetFuelsTradeId: " + Ex.Message);
+                MessageBox.Show("Ошибка GetVidsList: " + Ex.Message);
             }
             return vids;
         }
@@ -228,13 +276,13 @@ namespace WindowsFormsApp1
             List<ImageListTable> pics = new List<ImageListTable>();
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
-                string query = "SELECT * FROM [Pictures] where id_vid = @id_vid";
-                SqlCommand command = new SqlCommand(query, myConnection);
+                string query = "SELECT * FROM Pictures where id_vid = @id_vid";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id_vid", id_vid);
-                using (SqlDataReader dr = command.ExecuteReader())
+                using (NpgsqlDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -255,12 +303,12 @@ namespace WindowsFormsApp1
             List<SearchImageListTable> pics = new List<SearchImageListTable>();
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
-                string query = "SELECT * FROM [Pictures]";
-                SqlCommand command = new SqlCommand(query, myConnection);
-                using (SqlDataReader dr = command.ExecuteReader())
+                string query = "SELECT * FROM Pictures";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
+                using (NpgsqlDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -284,13 +332,13 @@ namespace WindowsFormsApp1
             PatInfoTable pat = new PatInfoTable();
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
-                string query = "SELECT * FROM [Patsient] where id = @id";
-                SqlCommand command = new SqlCommand(query, myConnection);
+                string query = "SELECT * FROM Patsient where id = @id";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id", id);
-                using (SqlDataReader dr = command.ExecuteReader())
+                using (NpgsqlDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -316,13 +364,13 @@ namespace WindowsFormsApp1
             VidInfoTable vid = new VidInfoTable();
             try
             {
-                SqlConnection myConnection = new SqlConnection(cnStr);
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
-                string query = "SELECT * FROM [Video] where id = @id";
-                SqlCommand command = new SqlCommand(query, myConnection);
+                string query = "SELECT * FROM Video where id = @id";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id", id);
-                using (SqlDataReader dr = command.ExecuteReader())
+                using (NpgsqlDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -341,6 +389,31 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Ошибка GetVid: " + Ex.Message);
             }
             return vid;
+        }
+
+        public static void UpdPat(int id, string name, string surname, string otch, DateTime bdate, DateTime pdate, string diag)
+        {
+            try
+            {
+                NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
+                myConnection.Open();
+
+                string query = "UPDATE Patsient SET name=@name, surname=@surname, otch=@otch, birthdate=@birthdate, date_post=@date_post, diag=@diag WHERE id = @id";
+                NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@name", name);
+                command.Parameters.AddWithValue("@surname", surname);
+                command.Parameters.AddWithValue("@otch", otch);
+                command.Parameters.AddWithValue("@birthdate", bdate);
+                command.Parameters.AddWithValue("@date_post", pdate);
+                command.Parameters.AddWithValue("@diag", diag);
+                command.ExecuteNonQuery();
+                myConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Ошибка GetPat: " + Ex.Message);
+            }
         }
 
     }

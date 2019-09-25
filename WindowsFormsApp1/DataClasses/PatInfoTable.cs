@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.DataClasses
 {
-    class PatInfoTable
+    public class PatInfoTable
     {
         public int Id { get; set; }
         public string FIO { get; set; }

@@ -69,6 +69,10 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -92,11 +96,11 @@
             this.toolStripContainer1.ContentPanel.Controls.Add(this.treeView2);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.treeView1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.panel1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1140, 558);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1214, 558);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(1140, 607);
+            this.toolStripContainer1.Size = new System.Drawing.Size(1214, 607);
             this.toolStripContainer1.TabIndex = 0;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -122,7 +126,7 @@
             this.panel3.Controls.Add(this.label14);
             this.panel3.Location = new System.Drawing.Point(209, 464);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(722, 94);
+            this.panel3.Size = new System.Drawing.Size(796, 94);
             this.panel3.TabIndex = 9;
             // 
             // kryptonButton1
@@ -229,6 +233,10 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label18);
+            this.panel2.Controls.Add(this.label19);
+            this.panel2.Controls.Add(this.textBox2);
+            this.panel2.Controls.Add(this.label17);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.label5);
@@ -239,7 +247,7 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Location = new System.Drawing.Point(209, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(722, 94);
+            this.panel2.Size = new System.Drawing.Size(796, 94);
             this.panel2.TabIndex = 0;
             // 
             // label7
@@ -255,18 +263,18 @@
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.textBox1.Location = new System.Drawing.Point(90, 32);
+            this.textBox1.Location = new System.Drawing.Point(76, 32);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(271, 50);
+            this.textBox1.Size = new System.Drawing.Size(202, 50);
             this.textBox1.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(561, 59);
+            this.label5.Location = new System.Drawing.Point(702, 59);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(12, 16);
             this.label5.TabIndex = 6;
@@ -276,7 +284,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(423, 59);
+            this.label6.Location = new System.Drawing.Point(564, 59);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(133, 16);
             this.label6.TabIndex = 5;
@@ -286,7 +294,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(561, 32);
+            this.label2.Location = new System.Drawing.Point(702, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(12, 16);
             this.label2.TabIndex = 4;
@@ -296,7 +304,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(423, 32);
+            this.label4.Location = new System.Drawing.Point(564, 32);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(113, 16);
             this.label4.TabIndex = 3;
@@ -306,7 +314,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(87, 5);
+            this.label3.Location = new System.Drawing.Point(78, 5);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(12, 16);
             this.label3.TabIndex = 2;
@@ -327,7 +335,7 @@
             this.treeView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(254)))), ((int)(((byte)(255)))));
-            this.treeView2.Location = new System.Drawing.Point(930, 1);
+            this.treeView2.Location = new System.Drawing.Point(1004, 1);
             this.treeView2.Name = "treeView2";
             this.treeView2.Size = new System.Drawing.Size(210, 557);
             this.treeView2.TabIndex = 4;
@@ -344,6 +352,7 @@
             this.treeView1.Size = new System.Drawing.Size(210, 557);
             this.treeView1.TabIndex = 3;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
             // 
             // panel1
             // 
@@ -355,7 +364,7 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(209, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(722, 557);
+            this.panel1.Size = new System.Drawing.Size(796, 557);
             this.panel1.TabIndex = 1;
             // 
             // panel4
@@ -455,7 +464,7 @@
             this.добавитьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1140, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1214, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -522,18 +531,58 @@
             this.toolStripButton2.Text = "toolStripButton2";
             this.toolStripButton2.Click += new System.EventHandler(this.загрузитьВидеоToolStripMenuItem_Click);
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Arial Unicode MS", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label17.Location = new System.Drawing.Point(16, 48);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(38, 12);
+            this.label17.TabIndex = 9;
+            this.label17.Text = "(общий)";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Arial Unicode MS", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label18.Location = new System.Drawing.Point(293, 48);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(36, 12);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "(видео)";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label19.Location = new System.Drawing.Point(285, 32);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(66, 16);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "Диагноз:";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.textBox2.Location = new System.Drawing.Point(353, 32);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(202, 50);
+            this.textBox2.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(254)))));
-            this.ClientSize = new System.Drawing.Size(1140, 607);
+            this.ClientSize = new System.Drawing.Size(1214, 607);
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1156, 646);
+            this.MaximumSize = new System.Drawing.Size(1230, 646);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1156, 646);
+            this.MinimumSize = new System.Drawing.Size(1230, 646);
             this.Name = "Form1";
             this.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.Text = "РЦРМ Щитовидка";
@@ -602,6 +651,10 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label17;
     }
 }
 

@@ -38,6 +38,9 @@ namespace WindowsFormsApp1
             patTreeRefresh();
             this.updateStatusDelegate = new UpdateStatusDelegate(this.UpdateStatus);
             kryptonButton1.Enabled = false;
+            DBOPS.CreatPatsTable();
+            DBOPS.CreatVideoTable();
+            DBOPS.CreatPictueTable();
         }
 
         private void patTreeRefresh()
@@ -81,7 +84,7 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             DBOPS.CreatVideoTable();
-            DBOPS.CreatePictureTable();
+            //DBOPS.CreatePictureTable();
         }
 
         private void добавитьПациентаToolStripMenuItem_Click(object sender, EventArgs e)
@@ -240,6 +243,7 @@ namespace WindowsFormsApp1
                 video = new VideoInfo(inputFile);
                 count = 0;
                 globalTimeSpan = new TimeSpan(0, 0, 0, 0);
+                textBox2.Text = vidDiag;
 
                 videoLength = videoInfo.Duration;
                 string output1 = videoInfo.Duration.ToString();
@@ -255,6 +259,8 @@ namespace WindowsFormsApp1
                 {
                     nButton.Visible = true;
                     bButton.Visible = true;
+                    nButton.Enabled = true;
+                    bButton.Enabled = true;
                     pictureBox1.Image = Image.FromFile(System.IO.Directory.GetCurrentDirectory() + pics[imgnum].path);
                     pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                     label15.Text = "Текущий снимок:";
@@ -312,6 +318,27 @@ namespace WindowsFormsApp1
             }
             catch (Exception ex) { }
 
+        }
+
+        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (Int32.Parse(e.Node.Tag.ToString()) != -1)
+            {
+                try
+                {
+                    pictureBox1.Image = null;
+                    pictureBox1.Image.Dispose();
+                    panel4.Enabled = false;
+                }
+                catch { }
+                panel4.Enabled = false;
+                nButton.Visible = false;
+                bButton.Visible = false;
+                var pat = DBOPS.GetPat(Int32.Parse(e.Node.Tag.ToString()));
+                var myForm = new AddPatForm(pat);
+                myForm.FormClosed += new FormClosedEventHandler(myForm_FormClosed);
+                myForm.Show();
+            }
         }
 
         private void nButton_Click(object sender, EventArgs e)
@@ -457,6 +484,7 @@ namespace WindowsFormsApp1
             count++;
             label13.Text = count + "\\" + maxframe;
         }
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             pictureBox1.Image.Dispose();

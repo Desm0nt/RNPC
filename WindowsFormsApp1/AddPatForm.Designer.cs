@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.closeButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,19 +43,21 @@
             this.bdatepicker = new System.Windows.Forms.DateTimePicker();
             this.pdatepicker = new System.Windows.Forms.DateTimePicker();
             this.diagtextbox = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.delButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.editButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.SuspendLayout();
             // 
-            // kryptonButton1
+            // closeButton
             // 
-            this.kryptonButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonButton1.Location = new System.Drawing.Point(286, 296);
-            this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.kryptonButton1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.kryptonButton1.Size = new System.Drawing.Size(125, 26);
-            this.kryptonButton1.TabIndex = 24;
-            this.kryptonButton1.Values.Text = "Отмена";
-            this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click);
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeButton.Location = new System.Drawing.Point(286, 296);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.closeButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.closeButton.Size = new System.Drawing.Size(125, 26);
+            this.closeButton.TabIndex = 24;
+            this.closeButton.Values.Text = "Отмена";
+            this.closeButton.Click += new System.EventHandler(this.kryptonButton1_Click);
             // 
             // panel1
             // 
@@ -70,7 +72,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(138, 296);
+            this.button1.Location = new System.Drawing.Point(147, 296);
             this.button1.Name = "button1";
             this.button1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.button1.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -176,12 +178,40 @@
             this.diagtextbox.Size = new System.Drawing.Size(399, 75);
             this.diagtextbox.TabIndex = 35;
             // 
+            // delButton
+            // 
+            this.delButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.delButton.Location = new System.Drawing.Point(7, 296);
+            this.delButton.Name = "delButton";
+            this.delButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.delButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.delButton.Size = new System.Drawing.Size(125, 26);
+            this.delButton.TabIndex = 39;
+            this.delButton.Values.Text = "Удалить";
+            this.delButton.Visible = false;
+            this.delButton.Click += new System.EventHandler(this.delButton_Click);
+            // 
+            // editButton
+            // 
+            this.editButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.editButton.Location = new System.Drawing.Point(147, 296);
+            this.editButton.Name = "editButton";
+            this.editButton.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.editButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.editButton.Size = new System.Drawing.Size(125, 26);
+            this.editButton.TabIndex = 40;
+            this.editButton.Values.Text = "Изменить";
+            this.editButton.Visible = false;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
+            // 
             // AddPatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(254)))));
             this.ClientSize = new System.Drawing.Size(423, 331);
+            this.Controls.Add(this.editButton);
+            this.Controls.Add(this.delButton);
             this.Controls.Add(this.pdatepicker);
             this.Controls.Add(this.bdatepicker);
             this.Controls.Add(this.label4);
@@ -194,7 +224,7 @@
             this.Controls.Add(this.surtextbox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nametextbox);
-            this.Controls.Add(this.kryptonButton1);
+            this.Controls.Add(this.closeButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.MaximizeBox = false;
@@ -210,7 +240,7 @@
 
         #endregion
 
-        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton closeButton;
         private System.Windows.Forms.Panel panel1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton button1;
         private System.Windows.Forms.Label label1;
@@ -225,5 +255,7 @@
         private System.Windows.Forms.DateTimePicker bdatepicker;
         private System.Windows.Forms.DateTimePicker pdatepicker;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox diagtextbox;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton delButton;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton editButton;
     }
 }
