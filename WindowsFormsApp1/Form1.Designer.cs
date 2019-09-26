@@ -41,6 +41,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -69,10 +73,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -131,7 +131,7 @@
             // 
             // kryptonButton1
             // 
-            this.kryptonButton1.Location = new System.Drawing.Point(569, 61);
+            this.kryptonButton1.Location = new System.Drawing.Point(629, 59);
             this.kryptonButton1.Name = "kryptonButton1";
             this.kryptonButton1.Size = new System.Drawing.Size(108, 25);
             this.kryptonButton1.TabIndex = 10;
@@ -141,7 +141,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(514, 67);
+            this.label13.Location = new System.Drawing.Point(548, 67);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(0, 13);
             this.label13.TabIndex = 8;
@@ -149,7 +149,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(421, 67);
+            this.label12.Location = new System.Drawing.Point(455, 67);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(87, 13);
             this.label12.TabIndex = 7;
@@ -168,7 +168,7 @@
             // 
             this.progressBar1.Location = new System.Drawing.Point(11, 61);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(404, 23);
+            this.progressBar1.Size = new System.Drawing.Size(438, 23);
             this.progressBar1.TabIndex = 5;
             // 
             // label10
@@ -249,6 +249,46 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(796, 94);
             this.panel2.TabIndex = 0;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Arial Unicode MS", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label18.Location = new System.Drawing.Point(293, 48);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(36, 12);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "(видео)";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label19.Location = new System.Drawing.Point(285, 32);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(66, 16);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "Диагноз:";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.textBox2.Location = new System.Drawing.Point(353, 32);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(202, 50);
+            this.textBox2.TabIndex = 10;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Arial Unicode MS", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label17.Location = new System.Drawing.Point(16, 48);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(38, 12);
+            this.label17.TabIndex = 9;
+            this.label17.Text = "(общий)";
             // 
             // label7
             // 
@@ -375,7 +415,7 @@
             this.panel4.Controls.Add(this.kryptonButton2);
             this.panel4.Controls.Add(this.kryptonButton3);
             this.panel4.Enabled = false;
-            this.panel4.Location = new System.Drawing.Point(147, 411);
+            this.panel4.Location = new System.Drawing.Point(190, 411);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(412, 50);
             this.panel4.TabIndex = 12;
@@ -427,7 +467,7 @@
             // 
             // bButton
             // 
-            this.bButton.Location = new System.Drawing.Point(108, 143);
+            this.bButton.Location = new System.Drawing.Point(151, 143);
             this.bButton.Name = "bButton";
             this.bButton.Size = new System.Drawing.Size(30, 213);
             this.bButton.TabIndex = 2;
@@ -438,7 +478,7 @@
             // 
             // nButton
             // 
-            this.nButton.Location = new System.Drawing.Point(568, 143);
+            this.nButton.Location = new System.Drawing.Point(611, 143);
             this.nButton.Name = "nButton";
             this.nButton.Size = new System.Drawing.Size(30, 213);
             this.nButton.TabIndex = 1;
@@ -449,7 +489,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(150, 100);
+            this.pictureBox1.Location = new System.Drawing.Point(193, 100);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(406, 308);
             this.pictureBox1.TabIndex = 0;
@@ -530,46 +570,6 @@
             this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton2.Text = "toolStripButton2";
             this.toolStripButton2.Click += new System.EventHandler(this.загрузитьВидеоToolStripMenuItem_Click);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Arial Unicode MS", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label17.Location = new System.Drawing.Point(16, 48);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(38, 12);
-            this.label17.TabIndex = 9;
-            this.label17.Text = "(общий)";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Arial Unicode MS", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label18.Location = new System.Drawing.Point(293, 48);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(36, 12);
-            this.label18.TabIndex = 12;
-            this.label18.Text = "(видео)";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label19.Location = new System.Drawing.Point(285, 32);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(66, 16);
-            this.label19.TabIndex = 11;
-            this.label19.Text = "Диагноз:";
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.textBox2.Location = new System.Drawing.Point(353, 32);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(202, 50);
-            this.textBox2.TabIndex = 10;
             // 
             // Form1
             // 
