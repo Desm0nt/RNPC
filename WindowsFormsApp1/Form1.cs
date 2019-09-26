@@ -61,6 +61,7 @@ namespace WindowsFormsApp1
                     if (treeView2.SelectedNode.Parent != null && Int32.Parse(treeView2.SelectedNode.Tag.ToString()) != -1) 
                     {
                         var vid = DBOPS.GetVid(Int32.Parse(treeView2.SelectedNode.Tag.ToString()));
+                        DBOPS.DeletePictures(vid.Id);
                         try
                         {
                             pictureBox1.Image = null;
@@ -71,6 +72,7 @@ namespace WindowsFormsApp1
                         panel4.Enabled = false;
                         nButton.Visible = false;
                         bButton.Visible = false;
+                        DBOPS.DeletePictures(vid.Id);
                         DBOPS.DeleteVidCascade(Int32.Parse(treeView2.SelectedNode.Tag.ToString()), vid.Path);
                         treeView2.SelectedNode.Parent.Nodes.Remove(treeView2.SelectedNode);
                     }
