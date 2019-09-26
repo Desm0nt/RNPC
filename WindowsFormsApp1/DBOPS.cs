@@ -154,7 +154,7 @@ namespace WindowsFormsApp1
                 NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id_vid", id_vid);
                 command.ExecuteNonQuery();
-                myConnection.Close();
+                myConnection.Close(); 
             }
             catch (Exception Ex)
             {
@@ -201,12 +201,8 @@ namespace WindowsFormsApp1
                 NpgsqlConnection myConnection = new NpgsqlConnection(cnStr);
                 myConnection.Open();
 
-                string query = "DELETE FROM Pictures Where id_vid = @id_vid";
+                string query = "DELETE FROM Video Where id = @id";
                 NpgsqlCommand command = new NpgsqlCommand(query, myConnection);
-                command.Parameters.AddWithValue("@vid_id", vid_id);
-                command.ExecuteNonQuery();
-                query = "DELETE FROM Video Where id = @id";
-                command = new NpgsqlCommand(query, myConnection);
                 command.Parameters.AddWithValue("@id", vid_id);
                 command.ExecuteNonQuery();
                 myConnection.Close();
